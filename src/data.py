@@ -1,0 +1,52 @@
+# - * - Coding : utf-8 - * -
+import os
+import requests
+import json
+import os
+import time
+import shutil
+from config import getStatusUsing
+
+path = '/home/sheylong/Documentos/Data/'
+path_down = '/home/sheylong/Downloads/'
+
+
+
+def removeDuplicate(dirs):
+	for dire in dirs:
+		if '(' in str(dire) and 'txt' in str(dire):
+			os.remove(path_down+str(dire))
+		else:
+			if 'txt' in str(dire):
+				shutil.move(path_down+str(dire), path)
+
+def insertAll(lines):
+	list_keys = []
+	for i in range(1, len(lines)):
+		key = lines[i].split('|')[0]
+		list_keys.append(key)
+	return list_keys
+
+def verify(keys, list_keys):
+	for key in keys:
+		if str(key) not in list_keys:
+			put = requests.put('http://'+url+':'+port+'/chaves/', data={'id': str(key), 'status': 'Free'})
+			print(put.json())
+		else:
+			put = requests.put('http://'+url+':'+port+'/chaves/', data={'id': str(key), 'status': 'Ok'})
+			print(put.json())
+
+def data():
+	print('dirs: ')
+	dirs = os.listdir(path_down)
+	keys = getStatusUsing()
+	print(dirs)
+	removeDuplicate(dirs)
+	dirs = os.listdir(path)
+	print(dirs)
+	for dire in dirs:
+		file = open(path+str(dire))
+		lines = file.readlines()
+		insertAll(lines)
+	verify(keys, list_keys)
+
