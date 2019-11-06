@@ -5,12 +5,10 @@ import json
 import os
 import time
 import shutil
-from config import getStatusUsing
+from config import getStatusUsing, setUrl, getUrl
 
 path = '/home/sheylong/Documentos/Data/'
 path_down = '/home/sheylong/Downloads/'
-
-
 
 def removeDuplicate(dirs):
 	for dire in dirs:
@@ -37,6 +35,16 @@ def verify(keys, list_keys):
 			print(put.json())
 
 def data():
+	isChange = raw_input("Deseja mudar a url? (S) or (N): ")
+
+	if isChange == 'S' or isChange == 's' :
+		url = raw_input("Insira o endereco da url: ")
+		setUrl(str(url))
+		print('A url foi alterada', getUrl())
+	else:
+		print('A url nao foi modificada')
+
+
 	print('dirs: ')
 	dirs = os.listdir(path_down)
 	keys = getStatusUsing()

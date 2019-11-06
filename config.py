@@ -4,8 +4,12 @@ import json
 url = 'localhost'
 port = '8080'
 
-def setUrl(url):
-	url = url
+def setUrl(url_):
+	global url
+	url = url_
+
+def getUrl():
+	return url
 
 def getStatusUsing():
 	get = requests.get('http://'+url+':'+port+'/using/')
