@@ -5,7 +5,7 @@ import json
 import os
 import time
 import shutil
-from config import getStatusUsing, setUrl, getUrl
+from config import getStatusUsing, setUrl, getUrl, put
 
 path = '/home/sheylong/Documentos/Data/'
 path_down = '/home/sheylong/Downloads/'
@@ -28,11 +28,9 @@ def insertAll(lines):
 def verify(keys, list_keys):
 	for key in keys:
 		if str(key) not in list_keys:
-			put = requests.put('http://'+url+':'+port+'/chaves/', data={'id': str(key), 'status': 'Free'})
-			print(put.json())
+			print(put(key,'Free'))
 		else:
-			put = requests.put('http://'+url+':'+port+'/chaves/', data={'id': str(key), 'status': 'Ok'})
-			print(put.json())
+			print(put(key,'Ok'))
 
 def data():
 	isChange = raw_input("Deseja mudar a url? (S) or (N): ")
@@ -52,9 +50,10 @@ def data():
 	removeDuplicate(dirs)
 	dirs = os.listdir(path)
 	print(dirs)
+	list_keys = []
 	for dire in dirs:
 		file = open(path+str(dire))
 		lines = file.readlines()
-		insertAll(lines)
+		list_keys.append(insertAll(lines))
 	verify(keys, list_keys)
 

@@ -1,6 +1,4 @@
 # -*- coding: UTF-8 -*- 
-
-import os
 import pytest
 import time
 import json
@@ -22,9 +20,6 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome('/snap/bin/chromium.chromedriver')
 
-path = '/home/sheylong/Downloads/'
-dirs = os.listdir(path)
-print('Quantidade de arquivos: ',len(dirs))
 
 def logar():
 	driver.get("https://www4.receita.pb.gov.br/atf/")
@@ -49,8 +44,8 @@ def listIds():
 		    Ids.append(ID[1])
 	return Ids
 
-#logar()
-#driver.get('https://www4.receita.pb.gov.br/atf/seg/SEGf_MinhasMensagens.do?limparSessao=true')
-#Ids = sorted(set(listIds()))
-#print('Quantidade de solicitações')
-#print(len(Ids))
+logar()
+driver.get('https://www4.receita.pb.gov.br/atf/seg/SEGf_MinhasMensagens.do?limparSessao=true')
+Ids = sorted(set(listIds()))
+print('Quantidade de solicitações')
+print(len(Ids))

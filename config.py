@@ -10,7 +10,7 @@ def setUrl(url_):
 
 def getUrl():
 	return url
-
+	
 def getStatusUsing():
 	get = requests.get('http://'+url+':'+port+'/using/')
 	return get.json()
@@ -24,11 +24,11 @@ def getStatusFree():
 	return get.json()
 
 def getKeys():
-	get = requests.get('http://'+url+':'+port+'/chaves/')
+	get = requests.get('http://'+url+':'+port+'/keys/')
 	return get.json()
 
 def getKeyId(id):
-	get = requests.get('http://'+url+':'+port+'/chaves/'+srt(id))
+	get = requests.get('http://'+url+':'+port+'/keys/'+srt(id))
 	return get.json()
 
 def setStatus(id, status):
@@ -36,19 +36,17 @@ def setStatus(id, status):
 	return sett.json()
 
 def post(id):
-	post = requests.post('http://'+url+':'+port+'/chaves/', data={'id': str(id)})
+	post = requests.post('http://'+url+':'+port+'/keys/', data={'id': str(id)})
 	return post.json()
 
 def put(id, status):
-	put = requests.put('http://'+url+':'+port+'/chaves/', data={'id': str(id), 'status': str(status)})
+	put = requests.put('http://'+url+':'+port+'/keys/', data={'id': str(id), 'status': str(status)})
 	return put.json()
 
 def deletAll():
-	delete = requests.delete('http://'+url+':'+port+'/chaves/')
+	delete = requests.delete('http://'+url+':'+port+'/keys/')
 	return delete.json()
 
 def delete(id):
-	delete = requests.delete('http://'+url+':'+port+'/chaves/', data={'id': str(id)})
-	return delete.json()
-
-
+	delete = requests.delete('http://'+url+':'+port+'/keys/', data={'id': str(id)})
+	returndelete.json()

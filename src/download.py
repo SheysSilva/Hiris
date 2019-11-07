@@ -13,8 +13,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from datetime import datetime
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 
 chrome_options = Options()
 chrome_options.add_argument('--headless')
@@ -91,7 +90,11 @@ def main():
 	downloads = []
 	notDown = []
 	while True:
-		logar()
+		try:
+			logar()
+		except TimeoutException as e:
+			logar()
+			print(str(e))
 		driver.get('https://www4.receita.pb.gov.br/atf/seg/SEGf_MinhasMensagens.do?limparSessao=true')
 		Ids = sorted(set(listIds()))
 		print Ids
@@ -101,12 +104,13 @@ def main():
 				if id not in downloads:
 					download(id)
 				downloads.append(id)
-			except (TimeoutException, NoSuchElementException) as e:
+			except (TimeoutException, NoSuchElementException, ElementClickInterceptedException) as e:
 				notDown.append(id)
 				print(str(e))
-			
+
+		list_Down = sorted(set(notDown))
 		print('FINISH')
 		print('downloads: ')
 		print(downloads)
 		print('not downloads:')
-		print(notDown)
+		print(list_Down)
