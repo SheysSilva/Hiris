@@ -4,6 +4,9 @@ import json
 url = 'localhost'
 port = '8080'
 
+companies= '/companies'
+keys='/keys'
+
 def setUrl(url_):
 	global url
 	url = url_
@@ -39,8 +42,8 @@ def post(id):
 	post = requests.post('http://'+url+':'+port+'/keys/', data={'id': str(id)})
 	return post.json()
 
-def put(id, status):
-	put = requests.put('http://'+url+':'+port+'/keys/', data={'id': str(id), 'status': str(status)})
+def put(id, status, company_id):
+	put = requests.put('http://'+url+':'+port+companies+'/'str(company_id)+keys+'/'+str(id), data={'status': str(status)})
 	return put.json()
 
 def deletAll():

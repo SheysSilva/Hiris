@@ -27,22 +27,13 @@ def insertAll(lines):
 
 def verify(keys, list_keys):
 	for key in keys:
+		cnpj = str(key)[6:19]
 		if str(key) not in list_keys:
-			print(put(key,'Free'))
+			print(put(key,'Free', cnpj))
 		else:
-			print(put(key,'Ok'))
+			print(put(key,'Ok', cnpj))
 
 def data():
-	isChange = raw_input("Deseja mudar a url? (S) or (N): ")
-
-	if isChange == 'S' or isChange == 's' :
-		url = raw_input("Insira o endereco da url: ")
-		setUrl(str(url))
-		print('A url foi alterada', getUrl())
-	else:
-		print('A url nao foi modificada')
-
-
 	print('dirs: ')
 	dirs = os.listdir(path_down)
 	keys = getStatusUsing()
